@@ -1,0 +1,63 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style type="text/css">
+body{
+	background-color: #f1f3f6;
+}
+
+.card{
+	animation-name: fadeIn;
+	animation-duration: 1s;
+	margin: 20px;
+}
+.form-group{
+	width: 45%;
+	margin: 1rem;
+}
+.userform{
+	display: flex;
+	flex-flow: column;
+	flex-wrap: wrap;
+	height: 27rem;
+}
+.profileform, .userform{
+	width: 100%;
+	margin: 0;
+}
+@media only screen and (max-width: 950px) {
+	.profileform, .userform{
+		margin: 0;
+		width: 100%;
+	}
+	.form-group{
+		width: 100%;
+		margin: 0;
+	}
+	.userform{
+		height: auto;
+	}
+}
+</style>
+<div class="body w-100 d-flex flex-column justify-content-center">
+	<div class="card">
+	  <div class="card-body">
+	    <h5 class="card-title">Register User</h5>
+	    <hr>
+	    <form method="POST">
+	    	<div class="d-flex flex-wrap m-0">
+		    	<div class="userform">
+		    	{% csrf_token %}
+		    	{{ uform|crispy }}
+		    	</div>
+		    	<div class="profileform">
+		    	{{ pform|crispy }}
+		    	</div>
+	    	</div>
+	    	<button class="btn btn-info" style="width: 80px">Join</button>
+	    </form>
+	  </div>
+	</div>
+</div>
+{% endblock %}

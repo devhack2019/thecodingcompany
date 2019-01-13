@@ -1,0 +1,32 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style type="text/css">
+body{
+	background-color: #f1f3f6;
+}
+
+.card{
+	animation-name: fadeIn;
+	animation-duration: 1s;
+	margin: 20px;
+}
+
+</style>
+<div class="body w-100 d-flex flex-column justify-content-center">
+	
+	
+	<div class="card" style="width: 30rem;">
+	  <div class="card-body">
+	    <h5 class="card-title">User Login</h5>
+	    <hr>
+	    <form method="POST">
+	    	{% csrf_token %}
+	    	{{ form|crispy }}
+	    	<button class="btn btn-info">Submit</button>
+	    </form>
+	  </div>
+	</div>
+</div>
+{% endblock %}

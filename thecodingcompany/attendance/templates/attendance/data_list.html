@@ -1,0 +1,71 @@
+{% extends "user/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style type="text/css">
+body{
+	background-color: #f1f3f6;
+}
+
+.card{
+	animation-duration: 1s;
+	margin: 2rem;
+	max-width: 1000px;
+}
+.scrollbox{
+	height: 30rem;
+	overflow-y: auto;
+}
+</style>
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">
+    	{{ heading }}
+    </h3>
+    <hr>
+
+	<form  style="height: 80vh" method="POST" onsubmit="return confirm('Are you sure you want to delete these accounts?')">
+		{% csrf_token %}
+    <div class="scrollbox mb-4 border">
+    <table class="table">
+	  <thead class="thead-dark">
+	    <tr>
+	      {% if heading != 'Professors' %}
+	      	<th scope="col">Rollno</th>
+	      	{% endif%}
+	      <th scope="col">First</th>
+	      <th scope="col">Last</th>
+	      <th scope="col">Select</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% for person in people %}
+	  	{% if person != user %}
+	    <tr>
+	    	{% if heading != 'Professors' %}
+	      	<th>{{person.profile.rollno}}</th>
+	      	{% endif%}
+	      <td>{{person.first_name}}</td>
+	      <td>{{person.last_name}}</td>
+	      <td>
+	      	<div class="input-group-text" style="width: 3rem;">
+		      <input type="checkbox" name="todelete" style="margin:0.2rem; width: 1.25rem; height: 1.25rem" value = '{{person.id}}'>
+		    </div>
+		  </td>
+	    </tr>
+	    {% endif %}
+	    {% endfor %}
+
+    	
+	    
+	  </tbody>
+	</table>
+	</div>
+	<button class="btn btn-info">Delete</button>
+	</form>
+  </div>
+</div>
+
+
+
+{% endblock %}
